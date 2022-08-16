@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.scss';
+import queryString from 'query-string';
+import Pagination from './components/Pagination';
 import PostList from './components/PostList';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList'
@@ -12,6 +14,8 @@ function App() {
     { id: '3', title: 'Code'}
   ])
   
+
+
   function handleTodoClick(todo) {
     // lấy được todo được click rồi
     console.log(todo);
@@ -40,29 +44,50 @@ function App() {
     setTodoList(newTodoList);
   }
 
-  
+      // pagination
+  const [pagination, setPagination] = useState({
+    _page: 1,
+    _limit: 10,
+    _totalRows: 1,
+  })
+
+  const [filters, setFilters] = useState({
+    _limit: 10,
+    _page: 1,
+  })
+
+  function handlePageChange(newPage) {
+    console.log('New page: ', newPage);
+    setFilters({
+      ...filters,
+      _page: newPage,
+    })
+  }
+    
   // call Api useEffect
   const [postLists, setPostLists] = useState([]);
 
   useEffect(() => {
     async function fetchPostList() {
       try {
-        const requestUrl = "http://js-post-api.herokuapp.com/api/posts?_limit=10&_page=1";
+        const paramsString = queryString.stringify(filters); //chuyển obj filter thành querry params
+        const requestUrl = `http://js-post-api.herokuapp.com/api/posts?${paramsString}`;
         const response = await fetch(requestUrl);
         const responseJSON = await response.json();
         console.log({ responseJSON });
 
-        const { data } = responseJSON;
+        const { data, pagination } = responseJSON;
         setPostLists(data); //cập nhật state sau khi lấy dữ liệu xong
+        setPagination(pagination);
       } catch (err) {
         console.log('Failed to fetch post list', err.message);
       }
     }
 
     fetchPostList();
-  }, []);
+  }, [filters]);  //chạy khi mỗi lần filter thay đổi
 
-  
+
 
   return (
     <div className="app">
@@ -70,6 +95,10 @@ function App() {
       {/* <TodoForm onSubmit={handleTodoFormSubmit} />
       <TodoList todos={todoList} onTodoClick={handleTodoClick} /> */}
       <PostList posts={postLists} />
+      <Pagination
+        pagination={pagination}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 }
