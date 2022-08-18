@@ -5,6 +5,7 @@ import Pagination from './components/Pagination';
 import PostList from './components/PostList';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList'
+import PostFiltersForm from './components/PostFiltersForm';
 
 function App() {
   
@@ -54,6 +55,7 @@ function App() {
   const [filters, setFilters] = useState({
     _limit: 10,
     _page: 1,
+    title_like: '',
   })
 
   function handlePageChange(newPage) {
@@ -87,13 +89,24 @@ function App() {
     fetchPostList();
   }, [filters]);  //chạy khi mỗi lần filter thay đổi
 
-
+  function handleFiltersChange(newFilters) {
+    console.log('New filters:', newFilters);
+      //new filter nhận giá trị là formvalue ở bên kia
+  
+    setFilters({
+      ...filters,
+      _page: 1,
+      title_like: newFilters.searchTerm,
+    })
+  }
 
   return (
     <div className="app">
       <h1>Hooks</h1>
       {/* <TodoForm onSubmit={handleTodoFormSubmit} />
       <TodoList todos={todoList} onTodoClick={handleTodoClick} /> */}
+      <PostFiltersForm onSubmit={handleFiltersChange} />  
+      {/* submit thì gọi hàm handleFiltersChange, truyền vào giá trị mới newFilter là formValue ở bên kia, là obj chứa searchTerm */}
       <PostList posts={postLists} />
       <Pagination
         pagination={pagination}
