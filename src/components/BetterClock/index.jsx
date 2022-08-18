@@ -1,11 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import useClock from '../../hooks/useClock';
 import './BetterClock.scss';
-
-BetterClock.propTypes = {
-    
-};
 
 function BetterClock() {
     const {timeString} = useClock()

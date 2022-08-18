@@ -8,6 +8,7 @@ import TodoList from './components/TodoList'
 import PostFiltersForm from './components/PostFiltersForm';
 import Clock from './components/Clock';
 import BetterClock from './components/BetterClock';
+import MagicBox from './components/MagicBox';
 
 function App() {
   
@@ -109,19 +110,20 @@ function App() {
       <h1>Hooks</h1>
       <BetterClock />
       
-      {showClock && <Clock />}
+      <MagicBox />
+      {/* {showClock && <Clock />}
       <button onClick={() => setShowClock(false)}>Hide Clock</button>
 
 
-      {/* <TodoForm onSubmit={handleTodoFormSubmit} />
-      <TodoList todos={todoList} onTodoClick={handleTodoClick} /> */}
+      <TodoForm onSubmit={handleTodoFormSubmit} />
+      <TodoList todos={todoList} onTodoClick={handleTodoClick} /> 
       <PostFiltersForm onSubmit={handleFiltersChange} />  
-      {/* submit thì gọi hàm handleFiltersChange, truyền vào giá trị mới newFilter là formValue ở bên kia, là obj chứa searchTerm */}
-      <PostList posts={postLists} />
+      {/* submit thì gọi hàm handleFiltersChange, truyền vào giá trị mới newFilter là formValue ở bên kia, là obj chứa searchTerm */} 
+      {/* <PostList posts={postLists} /> 
       <Pagination
         pagination={pagination}
         onPageChange={handlePageChange}
-      />
+      />  */}
     </div>
   );
 }
