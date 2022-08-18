@@ -7,6 +7,7 @@ import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList'
 import PostFiltersForm from './components/PostFiltersForm';
 import Clock from './components/Clock';
+import BetterClock from './components/BetterClock';
 
 function App() {
   
@@ -106,9 +107,11 @@ function App() {
   return (
     <div className="app">
       <h1>Hooks</h1>
+      <BetterClock />
       
       {showClock && <Clock />}
       <button onClick={() => setShowClock(false)}>Hide Clock</button>
+
 
       {/* <TodoForm onSubmit={handleTodoFormSubmit} />
       <TodoList todos={todoList} onTodoClick={handleTodoClick} /> */}
