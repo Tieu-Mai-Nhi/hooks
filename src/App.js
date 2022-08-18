@@ -6,6 +6,7 @@ import PostList from './components/PostList';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList'
 import PostFiltersForm from './components/PostFiltersForm';
+import Clock from './components/Clock';
 
 function App() {
   
@@ -95,14 +96,20 @@ function App() {
   
     setFilters({
       ...filters,
-      _page: 1,
-      title_like: newFilters.searchTerm,
+      _page: 1,  //reset lại trang đầu
+      title_like: newFilters.searchTerm,  // tìm những bài post chứa nội dung
     })
   }
+
+  const [showClock, setShowClock] = useState(true);
 
   return (
     <div className="app">
       <h1>Hooks</h1>
+      
+      {showClock && <Clock />}
+      <button onClick={() => setShowClock(false)}>Hide Clock</button>
+
       {/* <TodoForm onSubmit={handleTodoFormSubmit} />
       <TodoList todos={todoList} onTodoClick={handleTodoClick} /> */}
       <PostFiltersForm onSubmit={handleFiltersChange} />  
